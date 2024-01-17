@@ -7,7 +7,14 @@ from celeb_query_dataset import CelebQueryDataset
 from celeb_distractors_dataset import CelebDistractorsDataset
 
 
-def compute_embeddings(model: Module, dataloader: DataLoader, device: torch.device) -> Tensor:
+def __compute_embeddings(model: Module, dataloader: DataLoader, device: torch.device) -> Tensor:
+    """
+    Compute embeddings from the trained model for images from celebA_ir dataset
+    :param model: trained model
+    :param dataloader: query or distractors dataloader
+    :param device:
+    :return:
+    """
     model.eval()
     embeddings = None
     with torch.inference_mode():
@@ -26,26 +33,16 @@ def compute_embeddings(model: Module, dataloader: DataLoader, device: torch.devi
     return embeddings.detach()
 
 
-def compute_ir(model: Module, fpr=0.1, device=None):
-    if device is None:
-        device = torch.device("cpu")
-
-    query_dataset = CelebQueryDataset()
-    distractors_dataset = CelebDistractorsDataset()
-
-    query_dataloader = DataLoader(dataset=query_dataset, batch_size=100)
-    distractors_dataloader = DataLoader(dataset=distractors_dataset, batch_size=100)
-
-    query_embeddings = compute_embeddings(model, query_dataloader, device)
-    distractor_embeddings = compute_embeddings(model, distractors_dataloader, device)
-
-    # calculate same cosine similarities
+def __compute_cosine_query_pos(query_dataset: CelebQueryDataset, query_embeddings: Tensor) -> list:
+    """
+    Compute cosine similarities between positive pairs from query (stage 1)
+    :param query_dataset:
+    :param query_embeddings:
+    :return:
+    """
     cosine_similarity = CosineSimilarity(dim=0)
-
     query_person_ids = query_dataset.get_person_ids()
-
-    # Same query person similarity
-    person_similarities = []
+    pos_similarities = []
     for person_id in query_person_ids:
         query_embedding_indices = query_dataset.get_image_indices(person_id)
         query_embedding_indices_len = len(query_embedding_indices)
@@ -57,10 +54,20 @@ def compute_ir(model: Module, fpr=0.1, device=None):
                     i_tensor = person_query_embeddings[i]
                     j_tensor = person_query_embeddings[j]
                     cosine_similarity = cosine_similarity(i_tensor, j_tensor).item()
-                    person_similarities.append(cosine_similarity)
+                    pos_similarities.append(cosine_similarity)
+    return pos_similarities
 
-    # Different query persons similarities
-    cross_query_similarities = []
+
+def __compute_cosine_query_neg(query_dataset: CelebQueryDataset, query_embeddings: Tensor) -> list:
+    """
+    Compute cosine similarities between negative pairs from query (stage 2)
+    :param query_dataset:
+    :param query_embeddings:
+    :return:
+    """
+    cosine_similarity = CosineSimilarity(dim=0)
+    query_person_ids = query_dataset.get_person_ids()
+    neg_similarities = []
     for person_id_i in query_person_ids:
         for person_id_j in query_person_ids:
             if person_id_i != person_id_j:
@@ -81,9 +88,23 @@ def compute_ir(model: Module, fpr=0.1, device=None):
                         i_tensor = person_id_i_embeddings[i]
                         j_tensor = person_id_j_embeddings[j]
                         cosine_similarity = cosine_similarity(i_tensor, j_tensor).item()
-                        cross_query_similarities.append(cosine_similarity)
+                        neg_similarities.append(cosine_similarity)
+    return neg_similarities
 
-    # Similarity between query and distractor persons
+
+def __compute_cosine_query_distractors(query_dataset: CelebQueryDataset,
+                                       distractors_dataset: CelebDistractorsDataset,
+                                       query_embeddings: Tensor,
+                                       distractor_embeddings: Tensor) -> list:
+    """
+    Compute cosine similarities between negative pairs from query and distractors
+    :param query_dataset:
+    :param distractors_dataset:
+    :param query_embeddings:
+    :param distractor_embeddings:
+    :return:
+    """
+    cosine_similarity = CosineSimilarity(dim=0)
     query_distractor_similarities = []
     for i in range(len(query_dataset)):
         for j in range(len(distractors_dataset)):
@@ -91,8 +112,34 @@ def compute_ir(model: Module, fpr=0.1, device=None):
             j_tensor = distractor_embeddings[j]
             cosine_similarity = cosine_similarity(i_tensor, j_tensor).item()
             query_distractor_similarities.append(cosine_similarity)
+    return query_distractor_similarities
 
-    false_pairs = cross_query_similarities + query_distractor_similarities
+
+def compute_ir_metric(model: Module, fpr=0.1, device=None):
+    """
+    Compute the identification rate metric. Import this function into your code.
+    :param model:
+    :param fpr:
+    :param device:
+    :return:
+    """
+    if device is None:
+        device = torch.device("cpu")
+
+    query_dataset = CelebQueryDataset()
+    distractors_dataset = CelebDistractorsDataset()
+
+    query_dataloader = DataLoader(dataset=query_dataset, batch_size=100)
+    distractors_dataloader = DataLoader(dataset=distractors_dataset, batch_size=100)
+
+    query_embeddings = __compute_embeddings(model, query_dataloader, device)
+    distractor_embeddings = __compute_embeddings(model, distractors_dataloader, device)
+
+    pos_similarities = __compute_cosine_query_pos(query_dataset, query_embeddings)
+    neg_similarities = __compute_cosine_query_neg(query_dataset, query_embeddings)
+    query_distractor_similarities = __compute_cosine_query_distractors(query_dataset, distractors_dataset, query_embeddings, distractor_embeddings)
+
+    false_pairs = neg_similarities + query_distractor_similarities
     false_pairs = sorted(false_pairs)
 
     # Acceptable amount of false pairs
@@ -101,7 +148,7 @@ def compute_ir(model: Module, fpr=0.1, device=None):
     threshold_similarity = false_pairs[N]
 
     metric_value: int = 0
-    for s in person_similarities:
+    for s in pos_similarities:
         if s < threshold_similarity:
             metric_value += 1
 
