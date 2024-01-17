@@ -10,37 +10,38 @@ from datetime import datetime
 from tqdm.notebook import trange
 
 
-def accuracy(logits: torch.Tensor, ground_truth_labels: torch.Tensor) -> float:
-    predicted_labels = torch.argmax(logits, dim=1)
-    num_of_correct_predictions = torch.sum(predicted_labels == ground_truth_labels)
-    return num_of_correct_predictions.item()
-
-
 def train_step(model: Module, train_dataloader: DataLoader, criterion, optimizer: Optimizer, device) -> (float, float):
     """
-
     :param model:
     :param train_dataloader:
     :return: Tuple[float, float]: train_loss, train_accuracy
     """
     model.train(mode=True)
-    train_loss, train_acc = 0.0, 0.0
+    train_loss = 0.0
+    correct_answers = 0
+    total_labels = 0
     for _, (images, ground_truth_labels) in enumerate(train_dataloader):
         images: Tensor = images.to(device=device)
         ground_truth_labels = ground_truth_labels.to(device=device)
         output = model(images)
         loss: Tensor = criterion(output, ground_truth_labels)
         train_loss += loss.item()
-        train_acc += accuracy(output, ground_truth_labels)
+
+        _, predicted = torch.max(output.data, 1)
+        total_labels += ground_truth_labels.size(0)
+        correct_answers += (predicted == ground_truth_labels).sum().item()
+
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-    return train_loss / len(train_dataloader), 100 * (train_acc / len(train_dataloader))
+    return train_loss / len(train_dataloader), 100 * correct_answers // total_labels
 
 
 def validation_step(model: Module, val_dataloader: DataLoader, criterion, device) -> (float, float):
     model.eval()
-    val_loss, val_acc = 0.0, 0.0
+    val_loss = 0.0
+    correct_answers = 0
+    total_labels = 0
     with torch.inference_mode():
         for _, (images, labels) in enumerate(val_dataloader):
             images: Tensor = images.to(device=device)
@@ -48,8 +49,10 @@ def validation_step(model: Module, val_dataloader: DataLoader, criterion, device
             output = model(images)
             loss: Tensor = criterion(output, labels)
             val_loss += loss.item()
-            val_acc += accuracy(output, labels)
-    return val_loss / len(val_dataloader), 100.0 * (val_acc / len(val_dataloader))
+            _, predicted = torch.max(output.data, 1)
+            total_labels += labels.size(0)
+            correct_answers += (predicted == labels).sum().item()
+    return val_loss / len(val_dataloader), 100.0 * correct_answers // total_labels
 
 
 def train(
