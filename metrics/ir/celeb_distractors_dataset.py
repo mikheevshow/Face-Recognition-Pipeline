@@ -6,7 +6,7 @@ from PIL import Image
 
 from torchvision.transforms import transforms
 
-distractors_photos_path = '../celebA_ir/celebA_distractors'
+distractors_photos_path = '../../celebA_ir/celebA_distractors'
 
 
 class CelebDistractorsDataset(Dataset):

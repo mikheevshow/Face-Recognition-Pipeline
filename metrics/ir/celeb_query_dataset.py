@@ -6,8 +6,8 @@ import torchvision.transforms as transforms
 from PIL import Image
 import pandas as pd
 
-annotation_csv_path = '../celebA_ir/celebA_anno_query.csv'
-query_photos_path = '../celebA_ir/celebA_query'
+annotation_csv_path = '../../celebA_ir/celebA_anno_query.csv'
+query_photos_path = '../../celebA_ir/celebA_query'
 
 
 class CelebQueryDataset(Dataset):
