@@ -5,6 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d46ec9d-d35f-4eac-8cba-1d80da03f021" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/tsne.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/celeb_triplet.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset/celeb_triplet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train-face-recognition-nn.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/train-face-recognition-nn.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train/triplet_loss_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train/triplet_loss_train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -15,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Jupyter Notebook" />
         <option value="Python Script" />
+        <option value="Jupyter Notebook" />
       </list>
     </option>
   </component>

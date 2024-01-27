@@ -5,6 +5,8 @@ from torch.optim import Optimizer
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 
+from loss.triplet_loss import triplet_loss
+
 from datetime import datetime
 
 from tqdm.notebook import trange
@@ -56,7 +58,6 @@ def train(epochs: int,
           model: Module,
           train_dataloader: DataLoader,
           val_dataloader: DataLoader,
-          criterion,
           optimizer: Optimizer,
           device):
 
@@ -67,6 +68,8 @@ def train(epochs: int,
 
     timestamp = datetime.now().strftime('%Y%m%d-%H%M%S')
     summary_writer = SummaryWriter(f'runs/face_recognition_trainer_{timestamp}')
+
+    criterion = triplet_loss
 
     for epoch in trange(epochs):
 
