@@ -5,19 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d46ec9d-d35f-4eac-8cba-1d80da03f021" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/dataset/celeb.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dataset/celeb_triplet.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dataset/commons.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dataset/test3.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/loss/triplet_loss.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/metrics/metrics.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataset.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ir/celeb_distractors_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/metrics/ir/celeb_distractors_dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ir/celeb_query_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/metrics/ir/celeb_query_dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ir/ir.py" beforeDir="false" afterPath="$PROJECT_DIR$/metrics/ir/metric.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loss.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/train-face-recognition-nn.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/train-face-recognition-nn.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/loss/triplet_loss.py" beforeDir="false" afterPath="$PROJECT_DIR$/loss/triplet_loss.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +16,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Jupyter Notebook" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -57,11 +46,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/train" />
       <recent name="$PROJECT_DIR$/loss" />
       <recent name="$PROJECT_DIR$/metrics" />
       <recent name="$PROJECT_DIR$/dataset" />
       <recent name="$PROJECT_DIR$/ir" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="SharedIndexes">
