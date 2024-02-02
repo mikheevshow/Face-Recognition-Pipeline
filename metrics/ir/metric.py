@@ -25,7 +25,7 @@ def __compute_embeddings(model: Module, dataloader: DataLoader, device: torch.de
                 images_batch_tensor = images_batch
             model = model.to(device)
             images_batch_tensor = images_batch_tensor.to(device)
-            batch_of_embeddings = model(images_batch_tensor)
+            batch_of_embeddings = model.get_embedding(images_batch_tensor)
             if embeddings is None:
                 embeddings = batch_of_embeddings
             else:
@@ -49,12 +49,12 @@ def __compute_cosine_query_pos(query_dataset: CelebQueryDataset, query_embedding
         person_query_embeddings = query_embeddings[min(query_embedding_indices): max(query_embedding_indices) + 1]
 
         for i in range(query_embedding_indices_len):
-            for j in range(i, query_embedding_indices_len):
-                if i != j:
+            for j in range(query_embedding_indices_len):
+                if i < j:
                     i_tensor = person_query_embeddings[i]
                     j_tensor = person_query_embeddings[j]
-                    cosine_similarity = cosine_similarity(i_tensor, j_tensor).item()
-                    pos_similarities.append(cosine_similarity)
+                    sim = cosine_similarity(i_tensor, j_tensor).item()
+                    pos_similarities.append(sim)
     return pos_similarities
 
 
@@ -70,7 +70,7 @@ def __compute_cosine_query_neg(query_dataset: CelebQueryDataset, query_embedding
     neg_similarities = []
     for person_id_i in query_person_ids:
         for person_id_j in query_person_ids:
-            if person_id_i != person_id_j:
+            if person_id_i < person_id_j:
                 person_id_i_embeddings_indices = query_dataset.get_image_indices(person_id_i)
                 person_id_i_len = len(person_id_i_embeddings_indices)
                 person_i_from_index = min(person_id_i_embeddings_indices)
@@ -78,7 +78,7 @@ def __compute_cosine_query_neg(query_dataset: CelebQueryDataset, query_embedding
                 person_id_i_embeddings = query_embeddings[person_i_from_index:person_i_to_index]
 
                 person_id_j_embeddings_indices = query_dataset.get_image_indices(person_id_j)
-                person_id_j_len = len(person_id_i_embeddings_indices)
+                person_id_j_len = len(person_id_j_embeddings_indices)
                 person_j_from_index = min(person_id_j_embeddings_indices)
                 person_j_to_index = max(person_id_j_embeddings_indices) + 1
                 person_id_j_embeddings = query_embeddings[person_j_from_index:person_j_to_index]
@@ -87,8 +87,8 @@ def __compute_cosine_query_neg(query_dataset: CelebQueryDataset, query_embedding
                     for j in range(person_id_j_len):
                         i_tensor = person_id_i_embeddings[i]
                         j_tensor = person_id_j_embeddings[j]
-                        cosine_similarity = cosine_similarity(i_tensor, j_tensor).item()
-                        neg_similarities.append(cosine_similarity)
+                        sim = cosine_similarity(i_tensor, j_tensor).item()
+                        neg_similarities.append(sim)
     return neg_similarities
 
 
@@ -110,12 +110,12 @@ def __compute_cosine_query_distractors(query_dataset: CelebQueryDataset,
         for j in range(len(distractors_dataset)):
             i_tensor = query_embeddings[i]
             j_tensor = distractor_embeddings[j]
-            cosine_similarity = cosine_similarity(i_tensor, j_tensor).item()
-            query_distractor_similarities.append(cosine_similarity)
+            sim = cosine_similarity(i_tensor, j_tensor).item()
+            query_distractor_similarities.append(sim)
     return query_distractor_similarities
 
 
-def compute_ir_metric(model: Module, fpr=0.1, device=None):
+def compute_ir_metric(model: Module, fpr=0.1, device=torch.device("cuda")):
     """
     Compute the identification rate metric. Import this function into your code.
     :param model:
@@ -123,8 +123,8 @@ def compute_ir_metric(model: Module, fpr=0.1, device=None):
     :param device:
     :return:
     """
-    if device is None:
-        device = torch.device("cpu")
+    model.eval()
+    model.to(device)
 
     query_dataset = CelebQueryDataset()
     distractors_dataset = CelebDistractorsDataset()
@@ -152,5 +152,5 @@ def compute_ir_metric(model: Module, fpr=0.1, device=None):
         if s < threshold_similarity:
             metric_value += 1
 
-    return metric_value
+    return threshold_similarity, metric_value
 
