@@ -2,9 +2,9 @@ import os
 
 from torch.utils.data import Dataset
 
-from PIL import Image
-
-from torchvision.transforms import transforms
+import albumentations as A
+from albumentations.pytorch import ToTensorV2
+import cv2
 
 distractors_photos_path = '../../celebA_ir/celebA_distractors'
 
@@ -19,8 +19,16 @@ class CelebDistractorsDataset(Dataset):
 
     def __getitem__(self, index):
         img_name = self.img_names[index]
-        img = Image.open(os.path.join(distractors_photos_path, img_name))
-        transform = transforms.Compose([transforms.ToTensor()])
-        img = transform(img)
+        img = cv2.imread(os.path.join(distractors_photos_path, img_name))
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        transform = self.get_transforms()
+        img = transform(image=img)['image']
         return img
 
+    def get_transforms(self):
+        resize_height, resize_width = 224, 224
+        return A.Compose([
+            A.Resize(resize_height, resize_width),
+            A.Normalize(),
+            ToTensorV2()
+        ])

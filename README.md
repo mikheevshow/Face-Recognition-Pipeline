@@ -11,10 +11,8 @@
 
 ### Face Recognition
 
-| Network                              | Description | Accuracy | IR (Identification Rate) | Loss Formula |
-|--------------------------------------|-------------|----------|--------------------------|--------------|
-| VGG-16 + Standard Cross-entropy Loss |             |          |                          |              |
+| Network                                       | Test Accuracy | TPR@FPR (fpr=0.1) | TPR@FPR (fpr=0.1) | TPR@FPR (fpr=0.1) |
+|-----------------------------------------------|---------------|-------------------|-------------------|-------------------|
+| ResNet18 + Standard Cross-entropy Loss        |               |                   |                   |                   | 
+| ResNet18 + ArcFace + Cross-entropy Loss       |               |                   |                   |                   |
 
-### Face Alignment
-
-## Actual Face Recognition Methods Review

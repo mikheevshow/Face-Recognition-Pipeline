@@ -6,11 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="8d46ec9d-d35f-4eac-8cba-1d80da03f021" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataset/celeb.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset/celeb.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/loss/triplet_loss.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/metrics/ir/metric.py" beforeDir="false" afterPath="$PROJECT_DIR$/metrics/ir/metric.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train/triplet_loss_train.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsne.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/tsne.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/celeb_triplet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/commons.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/metrics/ir/celeb_distractors_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/metrics/ir/celeb_distractors_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/metrics/ir/celeb_query_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/metrics/ir/celeb_query_dataset.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +20,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Jupyter Notebook" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>

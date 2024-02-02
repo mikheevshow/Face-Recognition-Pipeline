@@ -2,8 +2,9 @@ import os
 from typing import List
 
 from torch.utils.data import Dataset
-import torchvision.transforms as transforms
-from PIL import Image
+import albumentations as A
+from albumentations.pytorch import ToTensorV2
+import cv2
 import pandas as pd
 
 annotation_csv_path = '../../celebA_ir/celebA_anno_query.csv'
@@ -21,10 +22,19 @@ class CelebQueryDataset(Dataset):
         row = self.annotations.iloc[index]
         image_name = row['img']
         person_id = row['id']
-        img = Image.open(os.path.join(query_photos_path, image_name))
-        transform = transforms.Compose([transforms.ToTensor()])
-        tensor_image = transform(img)
+        img = cv2.imread(os.path.join(query_photos_path, image_name))
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        transform = self.get_transforms()
+        tensor_image = transform(image=img)['image']
         return tensor_image, person_id
+
+    def get_transforms(self):
+        resize_height, resize_width = 224, 224
+        return A.Compose([
+            A.Resize(resize_height, resize_width),
+            A.Normalize(),
+            ToTensorV2()
+        ])
 
     def get_annotations(self) -> pd.DataFrame:
         return self.annotations
@@ -35,3 +45,4 @@ class CelebQueryDataset(Dataset):
     def get_image_indices(self,  person_id: int) -> List[int]:
         annotations = self.get_annotations()
         return annotations.index[annotations['id'] == person_id].tolist()
+
