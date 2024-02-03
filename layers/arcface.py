@@ -9,15 +9,15 @@ from math import sqrt, log, cos, sin, pi
 
 
 class ArcFace(Module):
-    def __init__(self, feature_in: int, feature_out: int, device:device, scale=None, margin=0.3):
+    def __init__(self, in_features: int, out_features: int, device:device, scale=None, margin=0.3):
         super(ArcFace, self).__init__()
         self.device = device
         if scale == None:
-            self.scale = sqrt(2) * log(feature_out - 1)
+            self.scale = sqrt(2) * log(out_features - 1)
         else:
             self.scale = scale
         self.margin = margin
-        self.weights = nn.Parameter(torch.FloatTensor(feature_out, feature_in))
+        self.weights = nn.Parameter(torch.FloatTensor(in_features, out_features))
         nn.init.xavier_normal_(self.weights)
         self.cos_m = cos(margin)
         self.sin_m = sin(margin)

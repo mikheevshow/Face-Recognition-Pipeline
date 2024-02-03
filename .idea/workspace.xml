@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d46ec9d-d35f-4eac-8cba-1d80da03f021" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/network/network.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trained/resnet-18-epoch-11-75-acc-test.h5" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataset/celeb_triplet.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataset/commons.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/metrics/ir/celeb_distractors_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/metrics/ir/celeb_distractors_dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/metrics/ir/celeb_query_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/metrics/ir/celeb_query_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layers/arcface.py" beforeDir="false" afterPath="$PROJECT_DIR$/layers/arcface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,11 +49,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/trained" />
       <recent name="$PROJECT_DIR$/train" />
       <recent name="$PROJECT_DIR$/loss" />
       <recent name="$PROJECT_DIR$/metrics" />
       <recent name="$PROJECT_DIR$/dataset" />
-      <recent name="$PROJECT_DIR$/ir" />
     </key>
   </component>
   <component name="SharedIndexes">
