@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d46ec9d-d35f-4eac-8cba-1d80da03f021" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/sim.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trained/resnet-18-arc-face-epoch-69-69-acc-test.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/visualizing/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/visualizing/tsne.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layers/arcface.py" beforeDir="false" afterPath="$PROJECT_DIR$/layers/arcface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/network.py" beforeDir="false" afterPath="$PROJECT_DIR$/network/network.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/metrics/ir/celeb_distractors_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/metrics/celeb_distractors_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/metrics/ir/celeb_query_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/metrics/celeb_query_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/metrics/ir/metric.py" beforeDir="false" afterPath="$PROJECT_DIR$/metrics/metric.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train-face-recognition-nn.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/train-face-recognition-nn.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,9 +55,9 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/trained" />
+      <recent name="$PROJECT_DIR$/metrics" />
       <recent name="$PROJECT_DIR$/train" />
       <recent name="$PROJECT_DIR$/loss" />
-      <recent name="$PROJECT_DIR$/metrics" />
       <recent name="$PROJECT_DIR$/dataset" />
     </key>
   </component>
