@@ -34,15 +34,16 @@ class ResNet18WithClassifier(Module):
 
 from layers.arcface import ArcFace
 
+
 class ResNet18WithArcFace(Module):
-    def __init__(self, num_classes=464, embedding_size=256):
+    def __init__(self, device, num_classes: int):
         super(ResNet18WithArcFace, self).__init__()
         self.backbone = resnet18(weights=ResNet18_Weights.DEFAULT)
         num_features = self.backbone.fc.in_features
-        self.backbone.fc = ArcFace(in_features=num_features, out_features=num_classes)
+        self.backbone.fc = ArcFace(in_features=num_features, out_features=num_classes, device=device)
 
     def forward(self, x: Tensor, labels) -> Tensor:
-        x = self.backbone(x)
+        x = self.backbone(x, labels=labels)
         return x
 
     def get_embedding(self, x: Tensor) -> Tensor:
