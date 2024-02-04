@@ -3,16 +3,10 @@ from torch import Tensor
 from torch.nn import Module, CosineSimilarity
 from torch.utils.data import DataLoader
 
-# from celeb_query_dataset import CelebQueryDataset
-# from celeb_distractors_dataset import CelebDistractorsDataset
-
 import os
 from typing import List
 
 from torch.utils.data import Dataset
-import albumentations as A
-from albumentations.pytorch import ToTensorV2
-import cv2
 import pandas as pd
 
 annotation_csv_path = './celebA_ir/celebA_anno_query.csv'

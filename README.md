@@ -1,4 +1,6 @@
-# Face Recognition Pipeline
+# Face Recognition
+
+Jupiter Notebooks doesn't work within GitHub preview by unknown reasons, so please pull the project locally.
 
 ## Used datasets
 
@@ -12,8 +14,9 @@
 | Network                                       | Test Accuracy | TPR@FPR (fpr=0.05)     | TPR@FPR (fpr=0.1)      | TPR@FPR (fpr=0.2)      | TPR@FPR (fpr=0.5)      |
 |-----------------------------------------------|---------------|------------------------|------------------------|------------------------|------------------------|
 | ResNet18 + Standard Cross-entropy Loss        | 0.75          | thr = 0.69, tpr = 0.65 | thr = 0.67, tpr = 0.76 | thr = 0.63, tpr = 0.87 | thr = 0.57, tpr = 0.97 | 
-| ResNet18 + ArcFace + Cross-entropy Loss       | 0.69          |                        |                        |                        |                        |
+| ResNet18 + ArcFace + Cross-entropy Loss       | 0.71          | thr = 0.41, tpr = 0.43 | thr = 0.29, tpr = 0.58 | thr = 0.19, tpr = 0.76 | thr = 0.07, tpr = 0.95 | 
 
+Networks weights are located in /trained directory
 
 ## References
 

@@ -17,8 +17,8 @@ class ArcFace(Module):
         else:
             self.scale = scale
         self.margin = margin
-        self.weights = nn.Parameter(torch.FloatTensor(in_features, out_features))
-        nn.init.xavier_normal_(self.weights)
+        self.weight = nn.Parameter(torch.FloatTensor(out_features, in_features))
+        nn.init.xavier_uniform_(self.weight)
         self.cos_m = cos(margin)
         self.sin_m = sin(margin)
         self.th = cos(pi - margin)

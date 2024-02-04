@@ -7,7 +7,13 @@
     <list default="true" id="8d46ec9d-d35f-4eac-8cba-1d80da03f021" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layers/arcface.py" beforeDir="false" afterPath="$PROJECT_DIR$/layers/arcface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/metrics/celeb_query_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/metrics/celeb_query_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/metrics/tprfpr.py" beforeDir="false" afterPath="$PROJECT_DIR$/metrics/tprfpr.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train-face-recognition-final.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/train-face-recognition-final.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train-face-recognition-nn.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/trained/resnet-18-arc-face-epoch-69-69-acc-test.h5" beforeDir="false" afterPath="$PROJECT_DIR$/trained/resnet-18-arcface-epoch-21-71-acc-test.h5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizing/tsne.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualizing/tsne.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
