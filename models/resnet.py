@@ -17,17 +17,17 @@ class ResNet18WithClassifier(Module):
         return x
 
     def get_embedding(self, x: Tensor) -> Tensor:
-        x = self.backbone.conv1(x)
-        x = self.backbone.bn1(x)
-        x = self.backbone.relu(x)
-        x = self.backbone.maxpool(x)
+        x = self.resnet.conv1(x)
+        x = self.resnet.bn1(x)
+        x = self.resnet.relu(x)
+        x = self.resnet.maxpool(x)
 
-        x = self.backbone.layer1(x)
-        x = self.backbone.layer2(x)
-        x = self.backbone.layer3(x)
-        x = self.backbone.layer4(x)
+        x = self.resnet.layer1(x)
+        x = self.resnet.layer2(x)
+        x = self.resnet.layer3(x)
+        x = self.resnet.layer4(x)
 
-        x = self.backbone.avgpool(x)
+        x = self.resnet.avgpool(x)
         x = torch.flatten(x, 1)
         return x
 

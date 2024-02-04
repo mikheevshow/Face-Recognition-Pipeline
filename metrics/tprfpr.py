@@ -3,8 +3,92 @@ from torch import Tensor
 from torch.nn import Module, CosineSimilarity
 from torch.utils.data import DataLoader
 
-from celeb_query_dataset import CelebQueryDataset
-from celeb_distractors_dataset import CelebDistractorsDataset
+# from celeb_query_dataset import CelebQueryDataset
+# from celeb_distractors_dataset import CelebDistractorsDataset
+
+import os
+from typing import List
+
+from torch.utils.data import Dataset
+import albumentations as A
+from albumentations.pytorch import ToTensorV2
+import cv2
+import pandas as pd
+
+annotation_csv_path = './celebA_ir/celebA_anno_query.csv'
+query_photos_path = './celebA_ir/celebA_query'
+
+
+class CelebQueryDataset(Dataset):
+    def __init__(self):
+        self.annotations = pd.read_csv(annotation_csv_path)
+
+    def __len__(self):
+        return len(self.annotations)
+
+    def __getitem__(self, index):
+        row = self.annotations.iloc[index]
+        image_name = row['img']
+        person_id = row['id']
+        img = cv2.imread(os.path.join(query_photos_path, image_name))
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        transform = self.get_transforms()
+        tensor_image = transform(image=img)['image']
+        return tensor_image, person_id
+
+    def get_transforms(self):
+        resize_height, resize_width = 224, 224
+        return A.Compose([
+            A.Resize(resize_height, resize_width),
+            A.Normalize(),
+            ToTensorV2()
+        ])
+
+    def get_annotations(self) -> pd.DataFrame:
+        return self.annotations
+
+    def get_person_ids(self) -> List[int]:
+        return self.annotations['id'].unique().tolist()
+
+    def get_image_indices(self,  person_id: int) -> List[int]:
+        annotations = self.get_annotations()
+        return annotations.index[annotations['id'] == person_id].tolist()
+
+
+import os
+
+from torch.utils.data import Dataset
+
+import albumentations as A
+from albumentations.pytorch import ToTensorV2
+import cv2
+
+distractors_photos_path = './celebA_ir/celebA_distractors'
+
+
+class CelebDistractorsDataset(Dataset):
+    def __init__(self):
+        super(CelebDistractorsDataset, self).__init__()
+        self.img_names = os.listdir(distractors_photos_path)
+
+    def __len__(self):
+        return len(self.img_names)
+
+    def __getitem__(self, index):
+        img_name = self.img_names[index]
+        img = cv2.imread(os.path.join(distractors_photos_path, img_name))
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        transform = self.get_transforms()
+        img = transform(image=img)['image']
+        return img
+
+    def get_transforms(self):
+        resize_height, resize_width = 224, 224
+        return A.Compose([
+            A.Resize(resize_height, resize_width),
+            A.Normalize(),
+            ToTensorV2()
+        ])
 
 
 def __compute_embeddings(model: Module, dataloader: DataLoader, device: torch.device) -> Tensor:
@@ -115,7 +199,7 @@ def __compute_cosine_query_distractors(query_dataset: CelebQueryDataset,
     return query_distractor_similarities
 
 
-def compute_ir_metric(model: Module, fpr=0.1, device=torch.device("cuda")):
+def compute_ir(model: Module, fpr=0.1, device=torch.device("cpu")):
     """
     Compute the identification rate metric. Import this function into your code.
     :param model:
@@ -132,12 +216,23 @@ def compute_ir_metric(model: Module, fpr=0.1, device=torch.device("cuda")):
     query_dataloader = DataLoader(dataset=query_dataset, batch_size=100)
     distractors_dataloader = DataLoader(dataset=distractors_dataset, batch_size=100)
 
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
     query_embeddings = __compute_embeddings(model, query_dataloader, device)
     distractor_embeddings = __compute_embeddings(model, distractors_dataloader, device)
 
     pos_similarities = __compute_cosine_query_pos(query_dataset, query_embeddings)
     neg_similarities = __compute_cosine_query_neg(query_dataset, query_embeddings)
-    query_distractor_similarities = __compute_cosine_query_distractors(query_dataset, distractors_dataset, query_embeddings, distractor_embeddings)
+    query_distractor_similarities = __compute_cosine_query_distractors(
+        query_dataset,
+        distractors_dataset,
+        query_embeddings,
+        distractor_embeddings
+    )
+
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
 
     false_pairs = neg_similarities + query_distractor_similarities
     false_pairs = sorted(false_pairs, reverse=True)
