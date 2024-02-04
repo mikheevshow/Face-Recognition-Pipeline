@@ -247,5 +247,5 @@ def compute_ir(model: Module, fpr=0.1, device=torch.device("cpu")):
         if s > threshold_similarity:
             metric_value += 1
 
-    return threshold_similarity, metric_value
+    return threshold_similarity, metric_value / len(pos_similarities)
 

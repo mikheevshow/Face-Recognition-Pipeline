@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d46ec9d-d35f-4eac-8cba-1d80da03f021" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/train-face-recognition-final.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/draw.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layers/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/metrics/__init__.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/metrics/tprfpr.py" beforeDir="false" afterPath="$PROJECT_DIR$/metrics/tprfpr.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/resnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/resnet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-tprfpr.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/test-tprfpr.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train-face-recognition-nn.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/train-face-recognition-nn.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualizing/__init__.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
