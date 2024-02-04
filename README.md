@@ -9,12 +9,10 @@
 
 ## Architecture
 
-
-
-| Network                                       | Test Accuracy | TPR@FPR (fpr=0.1) | TPR@FPR (fpr=0.1) | TPR@FPR (fpr=0.1) |
-|-----------------------------------------------|---------------|-------------------|-------------------|-------------------|
-| ResNet18 + Standard Cross-entropy Loss        | 0.75          |                   |                   |                   | 
-| ResNet18 + ArcFace + Cross-entropy Loss       | 0.69          |                   |                   |                   |
+| Network                                       | Test Accuracy | TPR@FPR (fpr=0.05)     | TPR@FPR (fpr=0.1)      | TPR@FPR (fpr=0.2)      | TPR@FPR (fpr=0.2)      |
+|-----------------------------------------------|---------------|------------------------|------------------------|------------------------|------------------------|
+| ResNet18 + Standard Cross-entropy Loss        | 0.75          | thr = 0.69, tpr = 0.65 | thr = 0.67, tpr = 0.76 | thr = 0.63, tpr = 0.87 | thr = 0.57, tpr = 0.97 | 
+| ResNet18 + ArcFace + Cross-entropy Loss       | 0.69          |                        |                        |                        |                        |
 
 
 ## References

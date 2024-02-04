@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8d46ec9d-d35f-4eac-8cba-1d80da03f021" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/metrics/tprfpr.py" beforeDir="false" afterPath="$PROJECT_DIR$/metrics/tprfpr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train-face-recognition-final.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/train-face-recognition-final.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
