@@ -10,7 +10,7 @@ def accuracy(model: Module,
              dataloader: DataLoader,
              criterion,
              device=torch.device("cpu"),
-             has_arc_face: bool = False, ) -> Tuple[float, float]:
+             has_arc_face: bool = False) -> Tuple[float, float]:
 
     model.eval()
     model.to(device)
@@ -31,4 +31,4 @@ def accuracy(model: Module,
             _, predicted = torch.max(output.data, 1)
             total_labels += labels.size(0)
             correct_answers += (predicted == labels).sum().item()
-    return total_loss / len(dataloader), 100.0 * correct_answers // total_labels
+    return total_loss / len(dataloader), 100.0 * correct_answers / total_labels

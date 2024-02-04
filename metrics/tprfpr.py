@@ -140,7 +140,7 @@ def compute_ir_metric(model: Module, fpr=0.1, device=torch.device("cuda")):
     query_distractor_similarities = __compute_cosine_query_distractors(query_dataset, distractors_dataset, query_embeddings, distractor_embeddings)
 
     false_pairs = neg_similarities + query_distractor_similarities
-    false_pairs = sorted(false_pairs)
+    false_pairs = sorted(false_pairs, reverse=True)
 
     # Acceptable amount of false pairs
     N = int(fpr * len(false_pairs))
@@ -149,7 +149,7 @@ def compute_ir_metric(model: Module, fpr=0.1, device=torch.device("cuda")):
 
     metric_value: int = 0
     for s in pos_similarities:
-        if s < threshold_similarity:
+        if s > threshold_similarity:
             metric_value += 1
 
     return threshold_similarity, metric_value

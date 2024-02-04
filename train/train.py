@@ -46,7 +46,7 @@ def train_step(
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-    return train_loss / len(train_dataloader), 100 * correct_answers // total_labels
+    return train_loss / len(train_dataloader), 100 * correct_answers / total_labels
 
 
 def validation_step(
@@ -72,7 +72,7 @@ def validation_step(
             _, predicted = torch.max(output.data, 1)
             total_labels += labels.size(0)
             correct_answers += (predicted == labels).sum().item()
-    return val_loss / len(val_dataloader), 100.0 * correct_answers // total_labels
+    return val_loss / len(val_dataloader), 100.0 * correct_answers / total_labels
 
 
 def train(
